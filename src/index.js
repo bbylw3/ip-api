@@ -347,9 +347,14 @@ export default {
               <div class="logo">IP<span>HUB</span></div>
               <div class="ip">IPv4: <span>${ipv4 || '未检测到'}</span></div>
               <div class="ip">IPv6: <span>${ipv6 || '未检测到'}</span></div>
-              <div class="subtitle">您的 IP 地址</div>
-              <div class="subtitle">ISP: ${asOrganization}</div>
-              <button onclick="location.reload()" class="button">刷新数据</button>
+              <div class="subtitle">您的 IP 地址 | Your IP Address</div>
+              <div class="subtitle">ISP | 运营商: ${asOrganization}</div>
+              <div class="subtitle">
+                位置 | Location: ${country} ${region} ${city} | ${ipApiData.country === 'CN' ? '中国' : ''} ${ipApiData.regionName} ${ipApiData.city}<br>
+                经纬度 | Coordinates: ${cf.latitude || '-'}, ${cf.longitude || '-'}<br>
+                时区 | Timezone: ${cf.timezone || '-'}
+              </div>
+              <button onclick="location.reload()" class="button">刷新数据 | Refresh</button>
             </div>
             
             <div class="info-card">

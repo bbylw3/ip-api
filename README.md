@@ -1,73 +1,46 @@
 # IP-API
 
-利用 Cloudflare Workers / Vercel Edge / Netlify Edge 快速搭一个获取 IP 地址和地理位置信息的接口。
+> 本项目修改自 [ccbikai/ip-api](https://github.com/ccbikai/ip-api)，添加了新的特性和界面优化。
 
-## 使用方式
+一个基于 Cloudflare Workers 的 IP 地址查询工具，支持 IPv4/IPv6 地址检测和地理位置信息查询，采用 PornHub 风格设计。
 
-### IP
+## 功能特点
 
-1. 通过访问 Cloudflare 获取本机 IP： `curl https://cloudflare-ip.html.zone/` 或者直接访问 <https://cloudflare-ip.html.zone/>
-2. 通过访问 Vercel 获取本机 IP： `curl https://vercel-ip.html.zone/` 或者直接访问 <https://vercel-ip.html.zone/>
-3. 通过访问 Netlify 获取本机 IP： `curl https://netlify-ip.html.zone/` 或者直接访问 <https://netlify-ip.html.zone/>
-
-### IP GEO
-
-1. 通过访问 Cloudflare 获取本机 IP 地理位置信息, `curl https://cloudflare-ip.html.zone/geo` 或者直接访问 <https://cloudflare-ip.html.zone/geo>
-2. 通过访问 Vercel 获取本机 IP 地理位置信息, `curl https://vercel-ip.html.zone/geo` 或者直接访问 <https://vercel-ip.html.zone/geo>
-3. 通过访问 Netlify 获取本机 IP 地理位置信息, `curl https://netlify-ip.html.zone/geo` 或者直接访问 <https://netlify-ip.html.zone/geo>
-
-> HTTP 响应头 `x-client-ip` 也是用户 IP 地址。
-
-GEO 信息格式：
-
-```json
-{
-    "ip": "142.171.116.110",
-    "city": "Los Angeles",
-    "country": "US",
-    "flag": "🇺🇸",
-    "countryRegion": "California",
-    "region": "LAX",
-    "latitude": "34.05440",
-    "longitude": "-118.24410",
-    "asOrganization": "Multacom Corporation"
-}
-```
+- 同时支持 IPv4 和 IPv6 地址检测
+- 多数据源支持（IP-API、IPInfo、Cloudflare）
+- 实时地理位置信息
+- PornHub 风格的界面设计
+- 响应式布局，支持移动端
 
 ## 部署方式
 
-### 1. 部署代码
+### Cloudflare Workers 部署
+1. 访问 [Cloudflare Workers](https://workers.cloudflare.com/)
+2. 点击 "Create a Service"
+3. 在 Quick Edit 编辑器中粘贴 `src/index.js` 中的代码
+4. 点击 "Save and Deploy"
 
-```bash
-# clone 此项目
-git clone https://github.com/ccbikai/ip-api.git
+完整的 Worker 代码请查看：[src/index.js](src/index.js)
 
-# 进入项目目录
-cd ip-api
-# 安装依赖
-npm i
+### 自定义域名（可选）
 
-## 部署到 Cloudflare Workers
-npm run deploy:cloudflare
+1. 在 Workers 页面找到您的 Worker
+2. 点击 "Add Custom Domain"
+3. 输入您的域名并保存
+4. 按照提示配置 DNS 记录
 
-## 部署到 Vercel Edge
-npm run deploy:vercel
+### IPv4/IPv6 设置
 
-## 部署到 Netlify Edge
-npm run deploy:netlify
-```
+Cloudflare 支持 IPv4 和 IPv6 访问，如果需要只支持单栈：
+- 仅 IPv4：只添加 A 记录
+- 仅 IPv6：只添加 AAAA 记录
 
-### 2. 绑定域名
+## 注意事项
 
-按照 Cloudflare/Vercel/Netlify 文档绑定域名即可。
-
-### 3. IPv4/IPv6 Only
-
-Cloudflare 支持 IPv4 和 IPv6 访问，如果想只支持单栈，可以只解析 A/AAAA 记录到 Cloudflare 的泛拨 IP。
-
-比如: <https://cloudflare-ip-v4.html.zone/> 和 <http://cloudflare-ip-v6.html.zone/>
+- 免费版 Workers 每天有 100,000 请求限制
+- 建议使用自定义域名以获得更好的访问体验
+- 如需更新代码，直接在 Workers 编辑器中修改并重新部署即可
 
 ## 问题反馈
 
-1. 提 Issue / Pull Request
-2. 联系 <https://twitter.com/ccbikai>
+如有问题，欢迎提交 Issue 或 Pull Request
